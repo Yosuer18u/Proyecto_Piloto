@@ -1590,3 +1590,104 @@ GO
 
 
 
+
+-----------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------
+								---- INSERTAR DATOS ----
+
+-----------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------
+
+-- SUCURSALES
+INSERT INTO SUCURSALES(NOMBRE, DIRECCION, TELEFONO, CORREO)
+VALUES('Galacticus Parque Central','Calle Real Monimbo, Parque central 25vrs al sur','82545259',
+'galacticusparquecentral@correo.com');
+
+INSERT INTO SUCURSALES(NOMBRE, DIRECCION, TELEFONO, CORREO)
+VALUES('Galacticus Plaza Paseo','Plaza Paseo Modulo C','81590910',
+'galacticusplazapaseo@correo.com');
+
+SELECT * FROM SUCURSALES;
+
+-- TIPOS PERSONAS
+SELECT * FROM TIPOS_PERSONA;
+
+INSERT INTO TIPOS_PERSONA(NOMBRE) VALUES('Natural'), ('Jurídica');
+
+-- PERSONAS
+SELECT * FROM PERSONAS;
+
+INSERT INTO PERSONAS(TIPO_PERSONA_ID, PRIMER_NOMBRE, SEGUNDO_NOMBRE, PRIMER_APELLIDO, SEGUNDO_APELLIDO, CEDULA, TELEFONO, CORREO, DIRECCION, FECHA_NACIMIENTO)
+VALUES(1, 'Mariel', 'Guadalupe', 'Espinoza', 'Castro','401-101201-0004J', '78175079','espinozacastromariel@gmail.com','Bo. San Miguel, Iglesia San Miguel 3c al norte, Masaya', '10/12/01'),
+(1, 'Aldo', 'Omar', 'Molina', 'Hernandez','001-070600-1003K', '77551314','aldo.omar@gmail.com','Calle Principal No. 120, Colonia Altamira, Managua', '07/06/00'),
+(2, 'Yosuer', 'Josue', 'Martinez', 'Montenegro','001-100900-1024M', '89371930','yosuermartinez28@gmail.com','3ª. Calle Este, Casa #8, Residencial San Judas, Managua', '10/09/00');
+
+-- TIPO DE CONTRATO
+
+INSERT INTO TIPOS_CONTRATO(NOMBRE, DESCRIPCION) 
+VALUES('Por tiempo indefinido', 'Es el contrato más estable, no tiene fecha de finalización y el trabajador permanece en la empresa mientras sus servicios sean necesarios, ofrece todos los beneficios laborales: vacaciones, INSS, aguinaldo e indemnización'),
+('Por tiempo determinado', 'Tiene una duración definida, se usa para cubrir necesidades temporales como aumento de trabajo por temporada o reemplazo de un empleado'),
+('Por servicios profesionales','El trabajador es contratado solo para realizar una tarea o proyecto específico. Una vez terminada la obra el contrato finaliza automáticamente');
+
+SELECT * FROM TIPOS_CONTRATO;
+
+-- EMPLEADOS
+SELECT * FROM EMPLEADOS;
+
+INSERT INTO EMPLEADOS (PERSONA_ID, TIPO_CONTRATO_ID, SALARIO, FECHA_CONTRATACION)
+VALUES
+(1, 1, 8000, '2019-10-12'),
+(2, 2, 6500, '2019-12-15'),
+(3, 3, 6000, '2020-02-10');
+
+-- ROLES
+SELECT * FROM ROLES;
+
+INSERT INTO ROLES(SUCURSAL_ID, NOMBRE) 
+VALUES(1, 'Administrador'), (1, 'Vendedor'), (1, 'Comprador');
+
+-- USUARIOS
+SELECT * FROM USUARIOS;
+
+INSERT INTO USUARIOS(EMPLEADO_ID, SUCURSAL_ID, ROL_ID, USERNAME, CONTRASENIA) 
+VALUES(1,1,1,'marielcastro','12345678'),(2, 1,2,'aldo.omar','12345678'),(3, 1,3,'yosuer_martinez','12345678') ;
+
+
+-- MENU
+INSERT INTO MENUS(NOMBRE, RUTA, IDENTIFICADOR, GRUPO, ICONO)
+VALUES ('Inicio','../home/','inicio','Inicio','ri-home-2-line'),
+('Categorias','../Categoria/','categoria','Mantenimiento','ri-stack-line'),
+('Productos','../Producto/','producto','Mantenimiento','las la-laptop'),
+('Clientes','../Cliente/','cliente','Mantenimiento','ri-team-line'),
+('Proveedores','../Proveedor/','proveedor','Mantenimiento','ri-truck-line'),
+('Monedas','../Moneda/','moneda','Mantenimiento','ri-exchange-dollar-line'),
+('Sucursales','../Sucursal/','sucursal','Mantenimiento','ri-building-line'),
+('Roles','../Rol/','rol','Mantenimiento','ri-user-settings-line'),
+('Usuarios','../Usuario/','usuario','Mantenimiento','ri-shield-user-line'),
+('Empleados','../Empleados/','empleados','Mantenimiento','ri-team-line'),
+('Registrar compra','../Compra/','compra','Compra','las la-cash-register'),
+('Compras','../ListaCompra/','listacompra','Compra','ri-shopping-cart-line'),
+('Registrar venta','../Venta/','venta','Venta','las la-cash-register'),
+('Ventas','../ListaVenta/','listaventa','Venta','ri-hand-coin-line');
+GO
+
+-- ROL1 ADMINISTRADOR PERMISOS
+INSERT INTO MENU_DETALLES(MENU_ID,ROL_ID, PERMITIDO) 
+VALUES(1,1,1),(2,1,1),(3,1,1),(4,1,1),(5,1,1),(6,1,1),
+(7,1,1),(8,1,1),(9,1,1),(10,1,1),(11,1,1),(12,1,1),(13,1,1),(14,1,1);
+
+SELECT * FROM MENUS;
+SELECT * FROM MENU_DETALLES;
+
+-- ROL2 VENDEDOR PERMISOS
+INSERT INTO MENU_DETALLES(MENU_ID,ROL_ID, PERMITIDO) 
+VALUES(1,2,0),(2,2,0),(3,2,0),(4,2,1),(5,2,0),(6,2,0),
+(7,2,0),(8,2,0),(9,2,0),(10,2,0),(11,2,0),(12,2,0),(13,2,1),(14,2,1);
+
+-- ROL3 COMPRADOR PERMISOS
+INSERT INTO MENU_DETALLES(MENU_ID,ROL_ID, PERMITIDO) 
+VALUES(1,3,0),(2,3,0),(3,3,0),(4,3,0),(5,3,1),(6,3,1),
+(7,3,0),(8,3,0),(9,3,0),(10,3,0),(11,3,1),(12,3,1),(13,3,0),(14,3,0);
+
